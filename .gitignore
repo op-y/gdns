@@ -1,0 +1,8 @@
+.ide
+.vscode
+.tmp
+.bak
+dns.db
+gdns
+output/
+bin/

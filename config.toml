@@ -1,0 +1,37 @@
+[storage]
+type = "sqlite"
+
+    [storage.mysql]
+    host = "127.0.0.1"
+    port = 3306
+    db = "dns"
+    username = "username"
+    password = "password"
+    maxOpenConn = 100
+    maxIdleConn = 50
+    ConnMaxLifetime = 3600
+
+    [storage.sqlite]
+    file = "dns.db"
+
+[cache]
+type = "mem"
+
+    [cache.redis]
+    host = "127.0.0.1"
+    port = 6379
+    maxActive = 100
+    maxIdle = 50
+    idleTimeout = 30
+
+    [cache.mem]
+    initSize = 1024
+
+[dns]
+address = "127.0.0.1:30053"
+nameserver = ["180.76.76.76:53"]
+timeout = 10
+ttl = 3600
+
+[web]
+address = "127.0.0.1:8888"
