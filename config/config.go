@@ -2,6 +2,7 @@ package config
 
 import (
 	"os"
+	"path/filepath"
 
 	"github.com/BurntSushi/toml"
 )
@@ -64,8 +65,6 @@ type WebConfig struct {
 }
 
 var (
-	DefaultConfigFile = "./config.toml"
-
 	DefaultConfig = &Config{
 		Storage: DefaultStorageConfig,
 		Cache:   DefaultCacheConfig,
@@ -116,17 +115,26 @@ func Load(s string) (*Config, error) {
 	return cfg, err
 }
 
-func LoadFile(filename string) *Config {
-	if filename == "" {
-		filename = DefaultConfigFile
-	}
-	content, err := os.ReadFile(filename)
+func LoadFile(fp string) *Config {
+	fp = joinPath(fp)
+	content, err := os.ReadFile(fp)
 	if err != nil {
-		panic("failed to load config file config.toml")
+		panic(err)
 	}
 	cfg, err := Load(string(content))
 	if err != nil {
-		panic("failed to parse config file config.toml")
+		panic(err)
 	}
 	return cfg
+}
+
+func joinPath(fp string) string {
+	if filepath.IsAbs(fp) {
+		return fp
+	}
+	dir, err := filepath.Abs(filepath.Dir(os.Args[0]))
+	if err != nil {
+		panic(err)
+	}
+	return filepath.Join(dir, fp)
 }

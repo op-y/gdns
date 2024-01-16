@@ -7,6 +7,7 @@ require (
 	github.com/gin-contrib/pprof v1.4.0
 	github.com/gin-gonic/gin v1.9.1
 	github.com/miekg/dns v1.1.57
+	github.com/spf13/pflag v1.0.5
 	gorm.io/driver/sqlite v1.5.4
 	gorm.io/gorm v1.25.5
 )

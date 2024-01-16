@@ -14,3 +14,9 @@ func TestLoadConfig(t *testing.T) {
 	t.Logf("%+v\n", cfg.DNS)
 	t.Logf("%+v\n", cfg.Web)
 }
+
+func TestJoinPath(t *testing.T) {
+	filename := "config.toml"
+	fp := joinPath(filename)
+	t.Logf(fp)
+}

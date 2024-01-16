@@ -6,6 +6,8 @@ import (
 	"os/signal"
 	"syscall"
 
+	flag "github.com/spf13/pflag"
+
 	"github.com/op-y/gdns/cache"
 	"github.com/op-y/gdns/config"
 	"github.com/op-y/gdns/dnsserver"
@@ -22,7 +24,12 @@ var (
 )
 
 func main() {
-	cfg = config.LoadFile("")
+	var fp string
+	flag.StringVarP(&fp, "conf", "f", "dns.toml", "configuration file")
+	flag.Lookup("conf").NoOptDefVal = "dns.toml"
+	flag.Parse()
+
+	cfg = config.LoadFile(fp)
 
 	dnscache = cache.NewDefaultCache(cfg.Cache)
 	dnsstorage = storage.NewDefaultStorage(cfg.Storage)
